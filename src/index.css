@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { background: #0a0a14; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'Rubik', system-ui, sans-serif; overscroll-behavior: none; }
+
+/* Tun: chuqur indigo + qon-qizil chiroq nuri. Kun: cho'g' (ember) rang. */
+.bg-night { background: radial-gradient(120% 60% at 50% -10%, #2a1850 0%, #0a0a14 60%); }
+.bg-day   { background: radial-gradient(120% 60% at 50% -10%, #5a2a0c 0%, #0f0a08 60%); }
+
+@keyframes pop { from { transform: scale(.9) rotateY(60deg); opacity: 0 } to { transform: none; opacity: 1 } }
+.animate-pop { animation: pop .45s ease-out; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: none } }
+.animate-fade { animation: fade .3s ease-out; }
+@media (prefers-reduced-motion: reduce) { .animate-pop, .animate-fade { animation: none } }
+button:focus-visible, input:focus-visible { outline: 2px solid #f43f5e; outline-offset: 2px; }
