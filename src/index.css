@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold1: #f7e3a1; --gold2: #d4a94c; --gold3: #8a6a1f; --neon: #ff2a4d;
+  --sky1: #07030e; --sky2: #22082c; --sky3: #5e0f2c; --moon: #f4dfb0; --win: #ffcf6b; --rim: #ff2a4d;
+  --smoke-a: rgba(120, 40, 200, .30); --smoke-b: rgba(190, 20, 60, .28); --smoke-c: rgba(60, 20, 120, .32);
+}
+.theme-day { --sky1: #12070a; --sky2: #4a1a0e; --sky3: #b24a14; --moon: #ffb347; --win: #ffd9a0; --rim: #ffb347;
+  --smoke-a: rgba(220, 120, 30, .26); --smoke-b: rgba(190, 40, 30, .26); --smoke-c: rgba(150, 90, 20, .28); }
+
+html, body { background: #07040c; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'Rubik', system-ui, sans-serif; overscroll-behavior: none; color: #f3eadb; }
+.font-display { font-family: 'Oswald', 'Rubik', sans-serif; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
+
+/* ---------- Sahna: noir shahar + tutun + don (grain) ---------- */
+.stage { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: #07040c; }
+.stage > svg { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity .6s; }
+.smoke { position: absolute; width: 90vmax; height: 90vmax; border-radius: 50%; will-change: transform; }
+.smoke.a { left: -40vmax; top: -30vmax; background: radial-gradient(circle, var(--smoke-a), transparent 62%); animation: drift1 38s ease-in-out infinite alternate; }
+.smoke.b { right: -45vmax; top: 10vh; background: radial-gradient(circle, var(--smoke-b), transparent 62%); animation: drift2 46s ease-in-out infinite alternate; }
+.smoke.c { left: -20vmax; bottom: -55vmax; background: radial-gradient(circle, var(--smoke-c), transparent 62%); animation: drift1 52s ease-in-out infinite alternate-reverse; }
+.shade-home { position: absolute; inset: 0; background: linear-gradient(rgba(5,2,9,.05) 0%, rgba(5,2,9,.25) 45%, rgba(5,2,9,.72) 100%); }
+.shade-dim { position: absolute; inset: 0; background: linear-gradient(rgba(5,2,9,.22), rgba(5,2,9,.55)); }
+.vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.7) 100%); }
+.grain { position: absolute; inset: 0; opacity: .07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>"); }
+@keyframes drift1 { from { transform: translate3d(0,0,0) } to { transform: translate3d(14vmax, 8vmax, 0) } }
+@keyframes drift2 { from { transform: translate3d(0,0,0) } to { transform: translate3d(-12vmax, 10vmax, 0) } }
+
+/* ---------- Matn va ramkalar ---------- */
+.gold-text { background: linear-gradient(180deg, var(--gold1), var(--gold2) 55%, var(--gold3)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.panel { position: relative; background: linear-gradient(180deg, rgba(20, 9, 28, .84), rgba(8, 4, 12, .88)); border: 1px solid rgba(212, 169, 76, .3);
+  border-radius: 16px; box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 10px 30px rgba(0,0,0,.5); }
+.panel::before { content: ''; position: absolute; left: 16px; right: 16px; top: -1px; height: 1px; background: linear-gradient(90deg, transparent, #d4a94c, transparent); }
+.panel-strong { background: linear-gradient(180deg, #1c0d2b, #0d0614); border: 1px solid rgba(212, 169, 76, .35); }
+.hairline { border-color: rgba(212, 169, 76, .22); }
+
+/* ---------- Tugmalar ---------- */
+.btn { display: flex; width: 100%; align-items: center; justify-content: center; gap: .5rem; border-radius: 14px; padding: .95rem 1rem;
+  font-family: 'Oswald', 'Rubik', sans-serif; font-weight: 600; font-size: 1.02rem; text-transform: uppercase; letter-spacing: .08em;
+  transition: transform .12s, filter .2s, box-shadow .2s; user-select: none; }
+.btn:active { transform: scale(.975); }
+.btn:disabled { opacity: .4; cursor: not-allowed; filter: saturate(.5); }
+.btn-red { color: #fff; background: linear-gradient(180deg, #c2183b, #7d0c26); border: 1px solid rgba(255, 190, 120, .55);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.4), 0 6px 22px rgba(255, 42, 77, .35), inset 0 1px 0 rgba(255,255,255,.25); }
+.btn-gold { color: #2a1a05; background: linear-gradient(180deg, #f7e3a1, #d4a94c 60%, #a97f2a); border: 1px solid rgba(255,255,255,.35); box-shadow: 0 6px 20px rgba(212,169,76,.3); }
+.btn-ghost { color: #f3eadb; background: rgba(255,255,255,.05); border: 1px solid rgba(212,169,76,.3); }
+.pulse-neon { animation: pulseNeon 2.2s ease-in-out infinite; }
+@keyframes pulseNeon { 0%,100% { box-shadow: 0 6px 22px rgba(255,42,77,.30) } 50% { box-shadow: 0 6px 34px rgba(255,42,77,.65) } }
+
+/* ---------- Profil kartalari ---------- */
+.pcard { display: flex; align-items: center; gap: .75rem; width: 100%; text-align: left; padding: .6rem .75rem; border-radius: 1.1rem;
+  background: linear-gradient(90deg, rgba(60, 24, 80, .55), rgba(20, 10, 30, .6)); border: 1px solid rgba(212,169,76,.2); transition: border-color .2s, background .2s, transform .1s; }
+.pcard:active:not(:disabled) { transform: scale(.985); }
+.pcard.sel { border-color: #ff2a4d; background: linear-gradient(90deg, rgba(150, 20, 50, .5), rgba(40, 10, 24, .65)); box-shadow: 0 0 18px rgba(255,42,77,.28); }
+.pcard:disabled { cursor: default; }
+.avatar { position: relative; flex-shrink: 0; border-radius: 9999px; overflow: hidden; box-shadow: 0 0 0 2px rgba(212,169,76,.55); }
+.avatar.speaking { box-shadow: 0 0 0 3px #22c55e, 0 0 16px #22c55e; }
+.avatar.dead { filter: grayscale(1); opacity: .45; }
+
+/* ---------- Rol kartasi (3D aylanish) ---------- */
+.card3d { perspective: 1100px; aspect-ratio: 2 / 3; }
+.card3d-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .95s cubic-bezier(.2, .8, .2, 1); }
+.card3d-inner.is-flipped { transform: rotateY(180deg); }
+.card3d-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 18px; overflow: hidden; }
+.card3d-front { transform: rotateY(180deg); }
+.card-glow { filter: drop-shadow(0 12px 30px rgba(0,0,0,.6)); }
+
+/* ---------- Animatsiyalar ---------- */
+@keyframes fade { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+.animate-fade { animation: fade .35s ease-out; }
+@keyframes sheet { from { transform: translateY(100%) } to { transform: none } }
+.animate-sheet { animation: sheet .28s cubic-bezier(.2,.8,.2,1); }
+@keyframes toast { 0% { opacity: 0; transform: translateY(-10px) } 10%,90% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(-10px) } }
+.animate-toast { animation: toast 3.2s ease-in-out forwards; }
+
+.safe-top { padding-top: max(env(safe-area-inset-top), 12px); }
+.safe-bottom { padding-bottom: max(env(safe-area-inset-bottom), 12px); }
+button:focus-visible, input:focus-visible { outline: 2px solid #ff2a4d; outline-offset: 2px; }
+input { color: #f3eadb; }
+::placeholder { color: rgba(243, 234, 219, .4); }
+
+@media (prefers-reduced-motion: reduce) {
+  .smoke, .animate-fade, .animate-sheet, .pulse-neon { animation: none !important; }
+  .card3d-inner { transition-duration: .01s; }
+}
+
+/* ---------- Xona kodi: kazino plitkalari + neon ---------- */
+.code-tile { display: flex; width: clamp(2.1rem, 11.5vw, 2.8rem); height: clamp(3rem, 15vw, 3.6rem); align-items: center; justify-content: center;
+  font-family: 'Oswald', sans-serif; font-weight: 700; font-size: clamp(1.7rem, 8.5vw, 2.2rem); color: #fff;
+  background: linear-gradient(180deg, #1d0b22, #0a040e); border: 1px solid rgba(212,169,76,.55); border-radius: 10px;
+  text-shadow: 0 0 8px #ff2a4d, 0 0 22px rgba(255,42,77,.75);
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,.6), inset 0 -10px 16px rgba(255,42,77,.08), 0 4px 14px rgba(0,0,0,.55); }
+.title-mafia { font-family: 'Oswald', sans-serif; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #fff3dc;
+  text-shadow: 0 0 10px rgba(255,42,77,.85), 0 0 34px rgba(255,42,77,.5), 0 3px 0 #7d0c26; animation: flicker 6s infinite; }
+@keyframes flicker { 0%, 18%, 22%, 62%, 66%, 100% { opacity: 1 } 20%, 64% { opacity: .72 } }
+.rule-gold { height: 1px; flex: 1; background: linear-gradient(90deg, transparent, #d4a94c); }
+.rule-gold.r { background: linear-gradient(270deg, transparent, #d4a94c); }
+@media (prefers-reduced-motion: reduce) { .title-mafia { animation: none; } }
